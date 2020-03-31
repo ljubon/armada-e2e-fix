@@ -48,6 +48,7 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 ```
 
 ## Installation
+
 This guide will install Armada on 3 local Kubernetes clusters; one server and two executor clusters. 
 
 Set the `ARMADA_VERSION` environment variable and clone this repository with the same version tag as you are installing. For example to install version `v0.1.2`:
@@ -76,9 +77,11 @@ helm template ./deployment/armada --set image.tag=$ARMADA_VERSION -f ./docs/quic
 # Get server IP for executors
 SERVER_IP=$(kubectl get nodes quickstart-armada-server-worker -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
 ```
+
 ### Executor deployments
 
 First executor:
+
 ```bash
 kind create cluster --name quickstart-armada-executor-0 --config ./docs/quickstart/kind-config-executor.yaml
 
@@ -92,7 +95,9 @@ helm template ./deployment/executor-cluster-monitoring -f docs/quickstart/execut
 # Get executor IP for Grafana
 EXECUTOR_0_IP=$(kubectl get nodes quickstart-armada-executor-0-worker -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
 ```
+
 Second executor:
+
 ```bash
 kind create cluster --name quickstart-armada-executor-1 --config ./docs/quickstart/kind-config-executor.yaml
 
@@ -106,6 +111,7 @@ helm template ./deployment/executor-cluster-monitoring -f docs/quickstart/execut
 # Get executor IP for Grafana
 EXECUTOR_1_IP=$(kubectl get nodes quickstart-armada-executor-1-worker -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
 ```
+
 ### Grafana configuration
 
 ```bash
@@ -113,9 +119,11 @@ curl -X POST -i http://admin:prom-operator@localhost:30001/api/datasources -H "C
 curl -X POST -i http://admin:prom-operator@localhost:30001/api/datasources -H "Content-Type: application/json" -d '{"name":"cluster-1","type":"prometheus","url":"http://'$EXECUTOR_1_IP':30001","access":"proxy","basicAuth":false}'
 curl -X POST -i http://admin:prom-operator@localhost:30001/api/dashboards/import --data-binary @./docs/quickstart/grafana-armada-dashboard.json -H "Content-Type: application/json"
 ```
+
 ### CLI installation
 
 The following steps download the `armadactl` CLI to the current directory:
+
 ```bash
 SYSTEM=$(uname | sed 's/MINGW.*/windows/' | tr A-Z a-z)
 if [ $SYSTEM == "windows" ]
@@ -130,7 +138,9 @@ curl -L https://github.com/G-Research/armada/releases/download/$ARMADA_VERSION/a
 ```
 
 ## Usage
+
 Create queues, submit some jobs and monitor progress:
+
 ```bash
 ./armadactl create-queue queue-a --priorityFactor 1
 ./armadactl create-queue queue-b --priorityFactor 2
@@ -139,9 +149,11 @@ Create queues, submit some jobs and monitor progress:
 ```
 
 Watch individual queues:
+
 ```bash
 ./armadactl watch queue-a job-set-1
 ```
+
 ```bash
 ./armadactl watch queue-b job-set-1
 ```
