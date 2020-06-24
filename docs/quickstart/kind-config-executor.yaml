@@ -9,4 +9,4 @@ nodes:
     nodeRegistration:
       kubeletExtraArgs:
         cpu-manager-policy: static
-        system-reserved: cpu=0
+        system-reserved: cpu=1
