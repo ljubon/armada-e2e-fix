@@ -116,6 +116,8 @@ tests-e2e: e2e-start-cluster build-docker
 	docker logs executor
 	echo -e "\nserver logs:"
 	docker logs server
+	echo -e "\nkube logs:"
+	docker logs kube
 	echo -e "\nrunning test:"
 	export PATH=${PATH}:${PWD}/bin
 	export INTEGRATION_ENABLED=true
