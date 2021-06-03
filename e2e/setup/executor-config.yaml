@@ -1,0 +1,6 @@
+apiConnection:
+  armadaUrl: "server:50051"
+  forceNoTls: true
+kubernetes:
+  impersonateUsers: true
+  stuckPodExpiry: 15s

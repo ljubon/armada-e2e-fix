@@ -1,7 +1,13 @@
 corsAllowedOrigins: ["http://localhost:3000"]
+redis:
+  addrs:
+    - "redis:6379"
+eventsRedis:
+  addrs:
+    - "redis:6379"
 eventsNats:
   Servers:
-    - "nats://localhost:4223"
+    - "nats://nats:4223"
   ClusterID: "test-cluster"
   Subject: "ArmadaTest"
   QueueGroup: "ArmadaEventRedisProcessor"
