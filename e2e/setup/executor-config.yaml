@@ -1,5 +1,5 @@
 apiConnection:
-  armadaUrl: "server:50051"
+  armadaUrl: "http://server:50051"
   forceNoTls: true
 kubernetes:
   impersonateUsers: true
